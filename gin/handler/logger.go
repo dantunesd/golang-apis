@@ -6,9 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type LoggerMiddleware struct{}
-
-func (e *LoggerMiddleware) Handle(c *gin.Context) {
+func Logger(c *gin.Context) {
 	c.Next()
 
 	if len(c.Errors) > 0 {

@@ -4,14 +4,12 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type ErrorHandlerMiddleware struct{}
-
 type ErrorResponse struct {
 	Status int    `json:"status"`
 	Detail string `json:"detail"`
 }
 
-func (e *ErrorHandlerMiddleware) Handle(c *gin.Context) {
+func Error(c *gin.Context) {
 	c.Next()
 
 	if len(c.Errors) > 0 {

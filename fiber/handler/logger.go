@@ -8,7 +8,7 @@ import (
 
 type LoggerMiddleware struct{}
 
-func (e *LoggerMiddleware) Handle(c *fiber.Ctx) error {
+func Logger(c *fiber.Ctx) error {
 	var err error
 	if err = c.Next(); err != nil {
 		log.Println("something went wrong: ", err)

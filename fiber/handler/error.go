@@ -4,14 +4,12 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-type ErrorHandlerMiddleware struct{}
-
 type ErrorResponse struct {
 	Status int    `json:"status"`
 	Detail string `json:"detail"`
 }
 
-func (e *ErrorHandlerMiddleware) Handle(c *fiber.Ctx) error {
+func Error(c *fiber.Ctx) error {
 	if err := c.Next(); err != nil {
 		if e, ok := err.(*fiber.Error); ok { // ignoring fiber errors such as Resource Not Found
 			return e

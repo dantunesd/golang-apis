@@ -9,17 +9,13 @@ import (
 )
 
 func main() {
-	errorHandlerMiddleware := handler.ErrorHandlerMiddleware{}
-	loggerMiddleware := handler.LoggerMiddleware{}
-	helloWorld := handler.HelloWorld{}
-
 	app := fiber.New()
 
 	app.Use(recover.New())
-	app.Use(errorHandlerMiddleware.Handle)
-	app.Use(loggerMiddleware.Handle)
+	app.Use(handler.Error)
+	app.Use(handler.Logger)
 
-	app.Get("/hello-world/:param", helloWorld.Handle)
+	app.Get("/hello-world/:param", handler.HelloWorld)
 
 	if err := app.Listen(":3000"); err != nil {
 		log.Println(err)

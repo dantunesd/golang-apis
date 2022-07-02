@@ -8,17 +8,13 @@ import (
 )
 
 func main() {
-	errorHandlerMiddleware := handler.ErrorHandlerMiddleware{}
-	loggerMiddleware := handler.LoggerMiddleware{}
-	helloWorld := handler.HelloWorld{}
-
 	app := gin.Default()
 
 	app.Use(gin.Recovery())
-	app.Use(errorHandlerMiddleware.Handle)
-	app.Use(loggerMiddleware.Handle)
+	app.Use(handler.Error)
+	app.Use(handler.Logger)
 
-	app.GET("/hello-world/:param", helloWorld.Handle)
+	app.GET("/hello-world/:param", handler.HelloWorld)
 
 	if err := app.Run(":3000"); err != nil {
 		log.Println(err)
