@@ -39,7 +39,7 @@ type Headers struct {
 }
 
 func TestAll(c *fiber.Ctx) error {
-	requestBody := RequestBody{}
+	var requestBody RequestBody
 	bodyParseError := c.BodyParser(&requestBody)
 
 	parameterOne := c.Params("p1")
@@ -47,7 +47,8 @@ func TestAll(c *fiber.Ctx) error {
 	parameterAll := c.AllParams()
 
 	queryParamOne := c.Query("q1")
-	queryParamAll := QueryParams{}
+
+	var queryParamAll QueryParams
 	c.QueryParser(&queryParamAll)
 
 	headersAll := c.GetReqHeaders()

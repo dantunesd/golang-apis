@@ -50,7 +50,8 @@ func TestAll(c *gin.Context) {
 	parameterAll := c.Params
 
 	queryParamOne := c.Query("q1")
-	queryParamAll := QueryParams{}
+
+	var queryParamAll QueryParams
 	c.ShouldBindQuery(&queryParamAll)
 
 	var headersAll Headers
