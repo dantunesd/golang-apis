@@ -13,11 +13,7 @@ type TestAllResponse struct {
 	QueryParamOne  string
 	QueryParamAll  QueryParams
 	HeadersAll     map[string]string
-}
-
-type QueryParams struct {
-	Q1 []string
-	Q2 string
+	HeadersParser  Headers
 }
 
 type RequestBody struct {
@@ -31,7 +27,18 @@ type FieldFour struct {
 	ChildField string `json:"child_field"`
 }
 
-func TestAllHandler(c *fiber.Ctx) error {
+type QueryParams struct {
+	Q1 []string
+	Q2 string
+}
+
+type Headers struct {
+	UserAgent   string `reqHeader:"User-Agent"`
+	Accept      string `reqHeader:"Accept"`
+	ContentType string `reqHeader:"Content-Type"`
+}
+
+func TestAll(c *fiber.Ctx) error {
 	requestBody := RequestBody{}
 	bodyParseError := c.BodyParser(&requestBody)
 
@@ -45,7 +52,10 @@ func TestAllHandler(c *fiber.Ctx) error {
 
 	headersAll := c.GetReqHeaders()
 
-	return c.JSON(TestAllResponse{
+	var headersParser Headers
+	c.ReqHeaderParser(&headersParser)
+
+	return c.Status(200).JSON(TestAllResponse{
 		RequestBody:    requestBody,
 		BodyParseError: bodyParseError,
 		ParameterOne:   parameterOne,
@@ -54,5 +64,6 @@ func TestAllHandler(c *fiber.Ctx) error {
 		QueryParamOne:  queryParamOne,
 		QueryParamAll:  queryParamAll,
 		HeadersAll:     headersAll,
+		HeadersParser:  headersParser,
 	})
 }

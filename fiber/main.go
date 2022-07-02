@@ -18,7 +18,7 @@ func main() {
 	app.Use(handler.Logger)
 
 	app.Get("/hello-world/:param", handler.HelloWorld)
-	app.Post("/test-all/:p1/:p2", handler.TestAllHandler)
+	app.Post("/test-all/:p1/:p2", handler.TestAll)
 
 	if err := app.Listen(":3000"); err != nil {
 		log.Println(err)
