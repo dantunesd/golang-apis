@@ -10,14 +10,8 @@ type LoggerMiddleware struct{}
 
 func (e *LoggerMiddleware) Handle(c *fiber.Ctx) error {
 	var err error
-
 	if err = c.Next(); err != nil {
-		e.printsError(err)
+		log.Println("something went wrong: ", err)
 	}
-
 	return err
-}
-
-func (e *LoggerMiddleware) printsError(err error) {
-	log.Println("something went wrong: ", err)
 }

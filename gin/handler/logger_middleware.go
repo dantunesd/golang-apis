@@ -13,6 +13,5 @@ func (e *LoggerMiddleware) Handle(c *gin.Context) {
 
 	if len(c.Errors) > 0 {
 		log.Println(c.Errors.String())
-		return
 	}
 }
