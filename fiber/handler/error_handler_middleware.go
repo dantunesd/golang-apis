@@ -16,7 +16,7 @@ func (e *ErrorHandlerMiddleware) Handle(c *fiber.Ctx) error {
 		if e, ok := err.(*fiber.Error); ok { // ignoring fiber errors such as Resource Not Found
 			return e
 		}
-		return c.Status(400).JSON(ErrorResponse{Status: 400, Detail: err.Error()})
+		return c.Status(500).JSON(ErrorResponse{Status: 500, Detail: err.Error()})
 	}
 	return nil
 }
