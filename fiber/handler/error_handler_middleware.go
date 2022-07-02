@@ -13,7 +13,7 @@ type ErrorResponse struct {
 
 func (e *ErrorHandlerMiddleware) Handle(c *fiber.Ctx) error {
 	if err := c.Next(); err != nil {
-		if e, ok := err.(*fiber.Error); ok {
+		if e, ok := err.(*fiber.Error); ok { // ignoring fiber errors such as Resource Not Found
 			return e
 		}
 		return c.Status(400).JSON(ErrorResponse{Status: 400, Detail: err.Error()})

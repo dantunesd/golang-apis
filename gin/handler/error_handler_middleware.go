@@ -15,7 +15,7 @@ func (e *ErrorHandlerMiddleware) Handle(c *gin.Context) {
 	c.Next()
 
 	if len(c.Errors) > 0 {
-		c.JSON(400, ErrorResponse{Status: 400, Detail: c.Errors.String()})
+		c.JSON(500, ErrorResponse{Status: 500, Detail: c.Errors.String()})
 		return
 	}
 }

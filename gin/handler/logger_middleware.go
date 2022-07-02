@@ -12,6 +12,6 @@ func (e *LoggerMiddleware) Handle(c *gin.Context) {
 	c.Next()
 
 	if len(c.Errors) > 0 {
-		log.Println(c.Errors.String())
+		log.Println("something went wrong: ", c.Errors.String())
 	}
 }
